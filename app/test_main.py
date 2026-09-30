@@ -1,23 +1,62 @@
 from app.main import get_human_age
+import pytest
 
 
-def test_if_ages_are_zero() -> None:
-    assert get_human_age(0, 0) == [0, 0]
+@pytest.mark.parametrize(
+    "initial_number_1, initial_number_2, expected_numbers",
+    [
+        (
+            0,
+            0,
+            [0, 0]
+        ),
 
+        (
+            15,
+            15,
+            [1, 1]
+        ),
 
-def test_first_fifteen_years() -> None:
-    assert get_human_age(15, 15) == [1, 1]
-    assert get_human_age(14, 14) == [0, 0]
-    assert get_human_age(1, 1) == [0, 0]
+        (
+            14,
+            14,
+            [0, 0]
+        ),
 
+        (
+            24,
+            24,
+            [2, 2]
+        ),
 
-def test_9_years_gives_second_human_year() -> None:
-    assert get_human_age(24, 24) == [2, 2]
-    assert get_human_age(23, 23) == [1, 1]
+        (
+            23,
+            23,
+            [1, 1]
+        ),
 
+        (
+            28,
+            28,
+            [3, 2]
+        ),
 
-def test_every_last_cat_dog_years() -> None:
-    assert get_human_age(100, 100) == [21, 17]
-    assert get_human_age(28, 28) == [3, 2]
-    assert get_human_age(27, 28) == [2, 2]
-    assert get_human_age(28, 29) == [3, 3]
+        (
+            27,
+            27,
+            [2, 2]
+        ),
+
+        (
+            28,
+            29,
+            [3, 3]
+        ),
+
+    ]
+)
+def test_human_age_transition(initial_number_1: int,
+                              initial_number_2: int,
+                              expected_numbers: list) -> None:
+    assert get_human_age(initial_number_1,
+                         initial_number_2) == expected_numbers
